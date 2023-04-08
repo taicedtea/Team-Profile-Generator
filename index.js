@@ -305,17 +305,5 @@ function generateIntern () {
     })
 }
 
-// const writeFile = (data) => {
-//     fs.writeFile('./dist/index.html', data, (err) => {
-//         if (err) {
-//             console.log(err);
-//             return
-//         } else {
-//             console.log("Your team's profile has been created! Check the index.html in dist folder.");
-//         }
-//     });
-// }
-
-
 //calls to generate first employee
 generateEmployees()
