@@ -1,73 +1,48 @@
-const newManagerCard = (manager) => {
-    return `
-    <div class="card m-2" style="width: 18rem;">
-        <div class="card-header">
-            <h3>${manager.name}</h3>
-            <p class="fs-5">Manager</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${manager.id}</li>
-            <li class="list-group-item">Email: ${manager.email}</li>
-            <li class="list-group-item">Office Number: ${manager.officeNum}</li>
-        </ul>
-    </div>
-    `;
-}
-
-const newEngineerCard = (engineer) => {
-    return `
-    <div class="card m-2" style="width: 18rem;">
-        <div class="card-header">
-            <h3>${engineer.name}</h3>
-            <p class="fs-5">Engineer</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${engineer.id}</li>
-            <li class="list-group-item">Email: ${engineer.email}</li>
-            <li class="list-group-item">github: ${engineer.github}</li>
-        </ul>
-    </div>
-    `;
-}
-
-const newInternCard = (intern) => {
-    return `
-    <div class="card m-2" style="width: 18rem;">
-        <div class="card-header">
-            <h3>${intern.name}</h3>
-            <p class="fs-5">Intern</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${intern.id}</li>
-            <li class="list-group-item">Email: ${intern.email}</li>
-            <li class="list-group-item">School: ${intern.school}</li>
-        </ul>
-    </div>
-    `;
-}
-
-const populateCards = (data) => {
-    const cards = [];
-    for (let i; i < data.length; i++) {
-        if (data[i].getRole() === 'Manager') {
-            const managerCard = newManagerCard(data[i]);
-            cards.push(managerCard)
+const generateHTML = (arr) => {
+    let employeeCards = ``
+    arr.forEach(
+        function (employee) {
+            if (employee.getRole() === 'Manager') {
+                employeeCards +=
+                    `<div class="card m-2" style="width: 18rem;">
+                        <div class="card-header">
+                            <h3>${employee.name}</h3>
+                            <p class="fs-5">Manager</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: ${employee.id}</li>
+                            <li class="list-group-item">Email: ${employee.email}</li>
+                            <li class="list-group-item">Office Number: ${employee.officeNum}</li>
+                        </ul>
+                    </div>`
+            } else if (employee.getRole() === 'Engineer') {
+                employeeCards += `    <div class="card m-2" style="width: 18rem;">
+                <div class="card-header">
+                    <h3>${employee.name}</h3>
+                    <p class="fs-5">Engineer</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${employee.id}</li>
+                    <li class="list-group-item">Email: ${employee.email}</li>
+                    <li class="list-group-item">github: ${employee.github}</li>
+                </ul>
+            </div>`
+            } else {
+                employeeCards += `    <div class="card m-2" style="width: 18rem;">
+                <div class="card-header">
+                    <h3>${employee.name}</h3>
+                    <p class="fs-5">Intern</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${employee.id}</li>
+                    <li class="list-group-item">Email: ${employee.email}</li>
+                    <li class="list-group-item">School: ${employee.school}</li>
+                </ul>
+            </div>`
+            }
         }
-        if (data[i].getRole() === 'Engineer') {
-            const engineerCard = newEngineerCard(data[i]);
-            cards.push(engineerCard)
-        }
-        if (data[i].getRole() === 'Intern') {
-            const internCard = newInternCard(data[i]);
-            cards.push(internCard)
-        }
-    };
-    const employeeCards = cards.join('')
-    const finalCards = generatedHTML(employeeCards)
-    return finalCards;
-};
-
-const generateHTML = (employeeCards) => {
+    )
+    
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -95,4 +70,5 @@ const generateHTML = (employeeCards) => {
     `;
 };
 
-module.export = generateHTML;
+//odule.export = generateHTML;
+export { generateHTML 
