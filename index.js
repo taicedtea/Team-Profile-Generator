@@ -1,12 +1,13 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-//const generateHTML = require('./src/generateHTML');
 const Manager  = require('./lib/Manager')
 const Engineer  = require('./lib/Engineer')
 const Intern  = require('./lib/Intern')
 
-//empty array for employees, to be populated by fns
+//empty array for employees, to be populated by fn
 const employeeArray = [];
+//creates empty variable for company name
+let companyName = '';
 
 const generateHTML = (arr) => {
     let employeeCards = ``
@@ -21,7 +22,7 @@ const generateHTML = (arr) => {
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">ID: ${employee.id}</li>
-                            <li class="list-group-item">Email: ${employee.email}</li>
+                            <li class="list-group-item">Email: <a href=mailto:“${employee.email}”>${employee.email}</a></li>
                             <li class="list-group-item">Office Number: ${employee.officeNum}</li>
                         </ul>
                     </div>`
@@ -34,8 +35,8 @@ const generateHTML = (arr) => {
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">ID: ${employee.id}</li>
-                        <li class="list-group-item">Email: ${employee.email}</li>
-                        <li class="list-group-item">github: ${employee.github}</li>
+                        <li class="list-group-item">Email: <a href=mailto:“${employee.email}”>${employee.email}</a></li>
+                        <li class="list-group-item">github: <a href='https://github.com/${employee.github}'>${employee.github}</li>
                     </ul>
                 </div>`
             } else {
@@ -47,7 +48,7 @@ const generateHTML = (arr) => {
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">ID: ${employee.id}</li>
-                        <li class="list-group-item">Email: ${employee.email}</li>
+                        <li class="list-group-item">Email: <a href=mailto:“${employee.email}”>${employee.email}</a></li>
                         <li class="list-group-item">School: ${employee.school}</li>
                     </ul>
                 </div>`
@@ -69,7 +70,7 @@ const generateHTML = (arr) => {
         <body>
             <div class="container-fluid p-0">
                 <nav class="col-12 p-4 bg-success text-center">
-                    <h1 class="text-white">Company Name</h1>
+                    <h1 class="text-white">${companyName.company}</h1>
                 </nav>
                 <div class="container d-flex flex-row flex-wrap justify-content-evenly mt-4">
                     ${employeeCards}
@@ -81,6 +82,28 @@ const generateHTML = (arr) => {
     </html>
     `;
 };
+
+function getCompanyName () {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'company',
+            message: 'Please enter your company name.',
+            validate: (company) => {
+                if (company) {
+                  return true;
+                } else {
+                  console.log("Please enter your company name.");
+                  return false;
+                }
+              },
+        },
+    ])
+    .then (input => {
+        companyName = input;
+        generateEmployees();
+    })
+}
 
 //starting function to generate first employee
 function generateEmployees () {
@@ -111,7 +134,7 @@ function generateManager () {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'employeeName',
+            name: 'name',
             message: 'Please enter the manager\'s name',
             validate: (name) => {
                 if (name) {
@@ -244,7 +267,7 @@ function generateIntern () {
         {
             type: 'input',
             name: 'name',
-            message: 'Please enter the engineers\'s name',
+            message: 'Please enter the intern\'s name',
             validate: (name) => {
                 if (name) {
                   return true;
@@ -305,5 +328,5 @@ function generateIntern () {
     })
 }
 
-//calls to generate first employee
-generateEmployees()
+//calls to get company name
+getCompanyName()
