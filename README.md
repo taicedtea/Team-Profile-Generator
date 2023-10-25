@@ -5,7 +5,7 @@
 3. [Usage](#usage)
 4. [Video Walkthrough](#video-walkthrough)
 ## Description
-This is a commandline-based application for companies to generate a team profile page with all of their employees. This is done through the command line using the node package 'inquirer'. After the user inputs the necessary information, a stylized HTML page is generated this information.
+This is a commandline-based application for companies to generate a team profile page with all of their employees. This is done through the command line using the node package 'inquirer'. After the user inputs the necessary information, a stylized HTML page is generated.
 
 ## Installation
 To install this app, clone this repo to your local machine. Once cloned, navigate to the applications's root directory within your terminal and run:
